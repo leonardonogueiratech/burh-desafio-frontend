@@ -1,0 +1,77 @@
+// Colors
+$primary-color: #6366f1;
+$primary-dark: #4f46e5;
+$primary-light: #818cf8;
+
+$secondary-color: #8b5cf6;
+
+$success-color: #10b981;
+$success-light: #6ee7b7;
+
+$warning-color: #f59e0b;
+$warning-light: #fcd34d;
+
+$danger-color: #ef4444;
+$danger-light: #fca5a5;
+
+$info-color: #3b82f6;
+
+// Neutrals
+$white: #ffffff;
+$black: #000000;
+
+$gray-50: #f9fafb;
+$gray-100: #f3f4f6;
+$gray-200: #e5e7eb;
+$gray-300: #d1d5db;
+$gray-400: #9ca3af;
+$gray-500: #6b7280;
+$gray-600: #4b5563;
+$gray-700: #374151;
+$gray-800: #1f2937;
+$gray-900: #111827;
+
+// Text
+$text-primary: $gray-800;
+$text-secondary: $gray-600;
+$text-muted: $gray-400;
+
+// Background
+$bg-primary: $gray-50;
+$bg-secondary: $white;
+
+// Gradients
+$gradient-primary: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
+$gradient-success: linear-gradient(135deg, $success-color 0%, #059669 100%);
+
+// Shadows
+$shadow-sm: 0 1px 2px rgba($black, 0.05);
+$shadow-md: 0 4px 6px -1px rgba($black, 0.1), 0 2px 4px -1px rgba($black, 0.06);
+$shadow-lg: 0 10px 15px -3px rgba($black, 0.1), 0 4px 6px -2px rgba($black, 0.05);
+$shadow-xl: 0 20px 25px -5px rgba($black, 0.1), 0 10px 10px -5px rgba($black, 0.04);
+
+// Border Radius
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 12px;
+$border-radius-xl: 16px;
+
+// Breakpoints (Mobile First)
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+// Transitions
+$transition-speed: 0.2s;
+$transition-speed-slow: 0.3s;
+
+// Container
+$container-max-width: 800px;
+$container-padding: 1rem;
+
+@media (min-width: $breakpoint-md) {
+  :root {
+    --container-padding: 1.5rem;
+  }
+}
