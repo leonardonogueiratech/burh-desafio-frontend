@@ -1,0 +1,336 @@
+@use '../../styles/variables' as *;
+
+.task-form {
+  background: $white;
+  padding: 1.5rem;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-md;
+  animation: slideUp 0.3s ease-out;
+
+  @media (min-width: $breakpoint-md) {
+    padding: 2rem;
+  }
+
+  &__title {
+    font-size: 1.25rem;
+    color: $text-primary;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid $gray-100;
+
+    @media (min-width: $breakpoint-md) {
+      font-size: 1.5rem;
+    }
+  }
+
+  &__group {
+    margin-bottom: 1.25rem;
+
+    &--half {
+      flex: 1;
+      min-width: 0;
+    }
+
+    &--checkbox {
+      margin-top: 0.5rem;
+    }
+  }
+
+  &__row {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+
+    @media (min-width: $breakpoint-sm) {
+      flex-direction: row;
+    }
+  }
+
+  &__label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: $text-secondary;
+    margin-bottom: 0.5rem;
+  }
+
+  &__required {
+    color: $danger-color;
+  }
+
+  &__input,
+  &__textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 2px solid $gray-200;
+    border-radius: $border-radius-md;
+    transition: border-color $transition-speed ease, box-shadow $transition-speed ease;
+    background: $white;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+    }
+
+    &::placeholder {
+      color: $gray-400;
+    }
+
+    &--error {
+      border-color: $danger-color;
+
+      &:focus {
+        box-shadow: 0 0 0 3px rgba($danger-color, 0.1);
+      }
+    }
+  }
+
+  &__textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  &__char-count {
+    display: block;
+    text-align: right;
+    font-size: 0.75rem;
+    color: $gray-400;
+    margin-top: 0.25rem;
+  }
+
+  &__error {
+    display: block;
+    color: $danger-color;
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+    animation: shake 0.3s ease-out;
+  }
+
+  &__priority-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__range {
+    flex: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 8px;
+    background: $gray-200;
+    border-radius: 4px;
+    outline: none;
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      background: $primary-color;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: transform $transition-speed ease, background $transition-speed ease;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+
+    &::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      background: $primary-color;
+      border-radius: 50%;
+      cursor: pointer;
+      border: none;
+      transition: transform $transition-speed ease;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  &__priority-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    white-space: nowrap;
+    transition: background $transition-speed ease, color $transition-speed ease;
+
+    &--1 {
+      background: $gray-100;
+      color: $gray-600;
+    }
+
+    &--2 {
+      background: rgba($info-color, 0.1);
+      color: $info-color;
+    }
+
+    &--3 {
+      background: rgba($warning-color, 0.1);
+      color: $warning-color;
+    }
+
+    &--4 {
+      background: rgba($danger-color, 0.1);
+      color: $danger-color;
+    }
+
+    &--5 {
+      background: $danger-color;
+      color: $white;
+      animation: pulse-badge 1s infinite;
+    }
+  }
+
+  &__checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    font-size: 0.9375rem;
+    color: $text-primary;
+  }
+
+  &__checkbox {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+    &:checked + .task-form__checkbox-custom {
+      background: $success-color;
+      border-color: $success-color;
+
+      &::after {
+        opacity: 1;
+        transform: rotate(45deg) scale(1);
+      }
+    }
+
+    &:focus + .task-form__checkbox-custom {
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.2);
+    }
+  }
+
+  &__checkbox-custom {
+    position: relative;
+    width: 22px;
+    height: 22px;
+    border: 2px solid $gray-300;
+    border-radius: $border-radius-sm;
+    transition: all $transition-speed ease;
+    flex-shrink: 0;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 2px;
+      width: 6px;
+      height: 12px;
+      border: solid $white;
+      border-width: 0 2px 2px 0;
+      opacity: 0;
+      transform: rotate(45deg) scale(0);
+      transition: all $transition-speed ease;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid $gray-100;
+  }
+
+  &__button {
+    flex: 1;
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: $border-radius-md;
+    cursor: pointer;
+    transition: all $transition-speed ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    &--submit {
+      background: $gradient-primary;
+      color: $white;
+
+      &:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: $shadow-lg;
+      }
+
+      &:active:not(:disabled) {
+        transform: translateY(0);
+      }
+    }
+
+    &--cancel {
+      background: $gray-100;
+      color: $text-secondary;
+
+      &:hover:not(:disabled) {
+        background: $gray-200;
+      }
+    }
+  }
+
+  &__loading {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba($white, 0.3);
+    border-top-color: $white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+@keyframes pulse-badge {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
