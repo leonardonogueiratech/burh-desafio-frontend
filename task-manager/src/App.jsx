@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Header from './components/Header';
 import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
+import TaskView from './components/TaskView';
 import Modal from './components/Modal';
 import { useTasks } from './hooks/useTasks';
 import './styles/global.scss';
@@ -11,7 +12,9 @@ function App() {
   const { tasks, loading, error, addTask, updateTask, deleteTask, toggleComplete } =
     useTasks();
   const [editingTask, setEditingTask] = useState(null);
+  const [viewingTask, setViewingTask] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
 
   const completedCount = tasks.filter((task) => task.completed).length;
@@ -20,7 +23,14 @@ function App() {
     await addTask(taskData);
   };
 
+  const handleViewTask = (task) => {
+    setViewingTask(task);
+    setIsViewModalOpen(true);
+  };
+
   const handleEditTask = (task) => {
+    setViewingTask(null);
+    setIsViewModalOpen(false);
     setEditingTask(task);
     setIsModalOpen(true);
   };
@@ -49,6 +59,11 @@ function App() {
     setIsModalOpen(false);
   };
 
+  const handleCloseViewModal = () => {
+    setViewingTask(null);
+    setIsViewModalOpen(false);
+  };
+
   return (
     <div className="app">
       <Header taskCount={tasks.length} completedCount={completedCount} />
@@ -63,6 +78,7 @@ function App() {
             tasks={tasks}
             loading={loading}
             error={error}
+            onView={handleViewTask}
             onEdit={handleEditTask}
             onDelete={handleDeleteTask}
             onToggleComplete={toggleComplete}
@@ -77,6 +93,14 @@ function App() {
           </p>
         </div>
       </footer>
+
+      <Modal isOpen={isViewModalOpen} onClose={handleCloseViewModal}>
+        <TaskView
+          task={viewingTask}
+          onClose={handleCloseViewModal}
+          onEdit={handleEditTask}
+        />
+      </Modal>
 
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         <TaskForm

@@ -1,7 +1,7 @@
 import TaskItem from '../TaskItem';
 import './TaskList.scss';
 
-const TaskList = ({ tasks, onEdit, onDelete, onToggleComplete, loading, error }) => {
+const TaskList = ({ tasks, onEdit, onDelete, onToggleComplete, onView, loading, error }) => {
   if (loading) {
     return (
       <div className="task-list task-list--loading">
@@ -62,6 +62,7 @@ const TaskList = ({ tasks, onEdit, onDelete, onToggleComplete, loading, error })
           <TaskItem
             key={task._id}
             task={task}
+            onView={onView}
             onEdit={onEdit}
             onDelete={onDelete}
             onToggleComplete={onToggleComplete}
