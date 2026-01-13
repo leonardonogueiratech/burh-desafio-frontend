@@ -1,0 +1,84 @@
+@use '../../styles/variables' as *;
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba($black, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease-out;
+
+  &__content {
+    position: relative;
+    background: $white;
+    border-radius: $border-radius-lg;
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slideUp 0.3s ease-out;
+
+    @media (min-width: $breakpoint-md) {
+      max-width: 550px;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $gray-100;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all $transition-speed ease;
+    z-index: 1;
+
+    svg {
+      width: 18px;
+      height: 18px;
+      fill: $gray-500;
+      transition: fill $transition-speed ease;
+    }
+
+    &:hover {
+      background: $gray-200;
+
+      svg {
+        fill: $text-primary;
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
