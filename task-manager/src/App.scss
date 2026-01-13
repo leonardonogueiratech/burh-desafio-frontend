@@ -1,0 +1,168 @@
+@use './styles/variables' as *;
+@use 'sass:color';
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  &__main {
+    flex: 1;
+    padding: 1.5rem 0;
+
+    @media (min-width: $breakpoint-md) {
+      padding: 2rem 0;
+    }
+  }
+
+  &__form-section {
+    margin-bottom: 2rem;
+
+    @media (min-width: $breakpoint-md) {
+      margin-bottom: 2.5rem;
+    }
+  }
+
+  &__footer {
+    background: $white;
+    padding: 1.5rem 0;
+    text-align: center;
+    border-top: 1px solid $gray-100;
+    margin-top: auto;
+
+    p {
+      font-size: 0.875rem;
+      color: $gray-500;
+    }
+  }
+
+  &__heart {
+    color: $danger-color;
+    animation: heartbeat 1.5s ease-in-out infinite;
+  }
+
+  // Confirm Modal
+  &__confirm-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba($black, 0.5);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    z-index: 1001;
+    animation: fadeIn 0.2s ease-out;
+  }
+
+  &__confirm-modal {
+    background: $white;
+    border-radius: $border-radius-lg;
+    padding: 2rem;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    animation: slideUp 0.3s ease-out;
+
+    h3 {
+      font-size: 1.25rem;
+      color: $text-primary;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      font-size: 0.9375rem;
+      color: $gray-500;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  &__confirm-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba($danger-color, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+
+    svg {
+      width: 30px;
+      height: 30px;
+      fill: $danger-color;
+    }
+  }
+
+  &__confirm-actions {
+    display: flex;
+    gap: 0.75rem;
+  }
+
+  &__confirm-btn {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    border: none;
+    border-radius: $border-radius-md;
+    cursor: pointer;
+    transition: all $transition-speed ease;
+
+    &--cancel {
+      background: $gray-100;
+      color: $text-secondary;
+
+      &:hover {
+        background: $gray-200;
+      }
+    }
+
+    &--delete {
+      background: $danger-color;
+      color: $white;
+
+      &:hover {
+        background: color.adjust($danger-color, $lightness: -10%);
+      }
+    }
+  }
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(1);
+  }
+  75% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
